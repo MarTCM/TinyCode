@@ -11,16 +11,18 @@ if (api_key == None):
 
 client = genai.Client(api_key=api_key)
 
-parser = argparse.ArgumentParser(description="Chatbot")
-parser.add_argument("user_prompt", type=str, help="User prompt")
-args = parser.parse_args()
 
 def main():
+    parser = argparse.ArgumentParser(description="AI Code Agent")
+    parser.add_argument("user_prompt", type=str, help="User prompt")
+    args = parser.parse_args()
+
     response = client.models.generate_content(
         model="gemini-2.5-flash",
         contents=args.user_prompt
     )
     print("User prompt: " + args.user_prompt)
+
     if (response.usage_metadata != None):
         print("Prompt tokens: " + str(response.usage_metadata.prompt_token_count))
         print("Response tokens: " + str(response.usage_metadata.candidates_token_count))
