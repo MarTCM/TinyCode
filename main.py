@@ -11,15 +11,19 @@ if (api_key == None):
 
 client = genai.Client(api_key=api_key)
 
-
 def main():
     parser = argparse.ArgumentParser(description="AI Code Agent")
     parser.add_argument("user_prompt", type=str, help="User prompt")
     args = parser.parse_args()
 
+    messages = [genai.types.Content(role="user", parts=[genai.types.Part(text=args.user_prompt)])]
+
+    generate_content(client, messages)
+
+def generate_content(client, messages):
     response = client.models.generate_content(
         model="gemini-2.5-flash",
-        contents=args.user_prompt
+        contents=messages
     )
     print("User prompt: " + args.user_prompt)
 
