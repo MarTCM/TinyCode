@@ -25,7 +25,6 @@ def generate_content(client, messages):
         model="gemini-2.5-flash",
         contents=messages
     )
-    print("User prompt: " + args.user_prompt)
 
     if (response.usage_metadata != None):
         print("Prompt tokens: " + str(response.usage_metadata.prompt_token_count))
